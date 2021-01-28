@@ -20,16 +20,14 @@ public class SaveData {
                 if (file.exists()) {
                     System.out.println("Plik z podaną nazwa juz istniene, podaj inną nazwę: ");
                 } else {
-                    System.out.println("Utworzono nowy plic CSV o nazwię " + "' " + fileName + " '");
+                    System.out.println("Na dysku 'D' utworzono nowy plic CSV o nazwię " + "' " + fileName + " '");
                 }
             } while (file.exists());
             try {
                 FileWriter writer = new FileWriter("D:\\" + fileName + ".CSV");
                 writer.write(heading+"\n");
                 for (String row : rows) {
-
                     writer.write(row+"\n");
-
                 }
 
                 writer.close();

@@ -9,7 +9,7 @@ import com.melon.dataGenerator.utils.Headings;
 
 import java.util.*;
 
-public class DataGenerator {
+class DataGenerator {
 
     private Customer customer;
     private Account account;
@@ -20,7 +20,7 @@ public class DataGenerator {
     private SaveData saveData;
     private Headings heading;
 
-    public DataGenerator() {
+    DataGenerator() {
         initializeActions();
     }
 
@@ -44,7 +44,7 @@ public class DataGenerator {
     private String transactionData = "";
     private int transactionId = 0;
 
-    public void start() {
+    void start() {
         System.out.println("\nGENERATOR DANYCH CSV\n");
         System.out.println("Podaj ilu klientów ma zostać wygenerowanych: ");
         int customersQuantity = ConsoleInputProvider.readIntFromUserHandlingEmptyInput();
@@ -58,7 +58,7 @@ public class DataGenerator {
             customer = new Customer(customerNameGenerator.generateCustomerName(), randomFieldsGenerators.generateFavoriteColor(), randomFieldsGenerators.generateAge());
             for (int j = 0; j < randomFieldsGenerators.generateAccountsForCustomer(accountsQuantity); j++) {
                 account = new Account(new Department(randomFieldsGenerators.generateDepartmentName()), randomFieldsGenerators.generateAccountName());
-                addAccountAndTransactions.addAccounts(customer.getAccounts(),account);
+                addAccountAndTransactions.addAccounts(customer.getAccounts(), account);
                 accountData = account.getAccountId() + "," + customer.getId() + "," + account.getDepartment().getDepartmentId() + "," + account.getName();
                 listOFAccounts.add(accountData);
 
@@ -67,30 +67,29 @@ public class DataGenerator {
 
 
                 for (int k = 0; k < randomFieldsGenerators.generateAmountOfTransactionForAccount(transactionQuantity); k++) {
-                    addAccountAndTransactions.addTransactions(account.getTransactions(),randomFieldsGenerators.generateTransactions());
-                    transactionData = transactionId + "," + account.getAccountId() + "," + printTransactions.printTransactionsValue(account.getTransactions(),k);
+                    addAccountAndTransactions.addTransactions(account.getTransactions(), randomFieldsGenerators.generateTransactions());
+                    transactionData = transactionId + "," + account.getAccountId() + "," + printTransactions.printTransactionsValue(account.getTransactions(), k);
                     listOFTransactions.add(transactionData);
                     transactionId++;
                 }
-
             }
 
             customerData = customer.getId() + "," + customer.getName() + "," + customer.getFavouriteColor().toLowerCase() + "," + customer.getAge();
             listOFCustomers.add(customerData);
         }
         System.out.println("\nPliki zostaną zapisane domyślnie na dysku D:\\ \n");
-        System.out.println("Podaj nazwę pliku dla danych o klientach:");
+        System.out.println("Podaj nazwę pliku dla danych o wygenerowanych klientach:");
         saveData.saveDb(listOFCustomers, heading.getCustomerHeading());
 
-        System.out.println("Podaj nazwę pliku dla danych o kontach klientów: ");
+        System.out.println("Podaj nazwę pliku dla danych wygenerowanych dla kont klientów: ");
         saveData.saveDb(listOFAccounts, heading.getAccountHeading());
 
-        System.out.println("Podaj nazwę pliku dla danych o departamentach banków: ");
+        System.out.println("Podaj nazwę pliku dla danych wygenerowanych o departamentach banków: ");
         List<String> sortedListOfDepartment = new LinkedList<>(listOFDepartment);
         Collections.sort(sortedListOfDepartment);
         saveData.saveDb(sortedListOfDepartment, heading.getDepartmentHeading());
 
-        System.out.println("Podaj nazwę pliku dla danych dla transakcji na kontach: ");
+        System.out.println("Podaj nazwę pliku dla danych wygnerowancyh dla transakcji na kontach: ");
         saveData.saveDb(listOFTransactions, heading.getTransactionHeading());
         ConsoleInputProvider.closeScanner();
 

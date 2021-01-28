@@ -7,7 +7,6 @@ import java.util.Random;
 public class RandomFieldsGenerators {
     private Random random = new Random();
 
-
     public int generateAge() {
         return random.nextInt(83) + 18;
 
@@ -37,7 +36,6 @@ public class RandomFieldsGenerators {
         }
         return departmentName;
     }
-
 
     public String generateFavoriteColor() {
         String color = "";
@@ -115,13 +113,11 @@ public class RandomFieldsGenerators {
             case 5:
                 name = "Platinum account";
                 break;
-
         }
         return name;
     }
 
     public Transaction generateTransactions() {
-
         String type = "";
         switch (random.nextInt(2)) {
             case 0:
@@ -135,8 +131,6 @@ public class RandomFieldsGenerators {
         if (type.equals("Withdraw")) {
             value *= -1;
         }
-
-
         return new Transaction(type, value);
     }
 
